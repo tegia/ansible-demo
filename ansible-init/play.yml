@@ -1,6 +1,6 @@
 ---
 - name: Init Server
-  hosts: cantec
+  hosts: cantec, celery
   become: yes
   # become_user: ubuntu
 

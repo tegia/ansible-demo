@@ -1,3 +1,14 @@
+# Install Ansible on Control Machine
+sudo apt update
+sudo apt install ansible
+sudo nano /etc/ansible/hosts
+[servers]
+server1 ansible_host=203.0.113.111
+server2 ansible_host=203.0.113.112
+server3 ansible_host=203.0.113.113
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
 # Ansible playbook: Init
 
 An Ansible playbook that installs all common tool on Linux.
