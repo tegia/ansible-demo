@@ -1,0 +1,42 @@
+- name: Ensure dependencies are installed.
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "apt-transport-https"
+    - "ca-certificates"
+    - "gnupg2"
+
+- name: Add Docker apt key.
+  apt_key:
+    url: "{{ docker_apt_gpg_key }}"
+    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+    state: present
+
+- name: Add Docker repository.
+  apt_repository:
+    repo: "{{ docker_apt_repository }}"
+    state: present
+    update_cache: true
+
+- name: Install Docker.
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: 
+    - docker-ce 
+    - docker-ce-cli 
+    - containerd.io
+
+- name: Ensure docker users are added to the docker group.
+  user:
+    name: "{{ item }}"
+    groups: 
+      - docker
+    append: true
+  with_items: "{{ docker_users }}"
+  when: docker_users | length > 0
+
+- include_tasks: docker-compose.yml
+
+- include_tasks: ctop.yml

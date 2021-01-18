@@ -1,0 +1,20 @@
+---
+- name: Init Server
+  hosts: cantec
+  become: yes
+  # become_user: ubuntu
+
+  roles:
+    - { 
+      role: user,
+      username: ubuntu,
+      password: "$6$AkaBMXnxyzecv$vJL/OeH3KIynnaRveVFp/.1296cJVw09oCAJphGjtkckzhzBFS0jOh1B0iTo6GRI8OtvaAePBc0.ZY1X20i0J0" # 9JvGGCcyg2EIPmwNcSFPWkjXD8cTaeFR
+    }
+    - {
+      role: zsh,
+      zsh_user: "ubuntu"
+    }
+    - { 
+      role: docker,
+      docker_users: ["ubuntu"],
+    }

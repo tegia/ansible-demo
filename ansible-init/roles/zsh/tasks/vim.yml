@@ -1,0 +1,14 @@
+- name: Clone vimrc
+  git:
+    repo: https://github.com/amix/vimrc.git
+    dest: "~{{ zsh_user }}/.vim_runtime"
+    version: "master"
+    force: yes
+    depth: "1"
+  become: yes
+  become_user: "{{ zsh_user }}"
+
+- name: Run install_awesome_vimrc.sh
+  shell: ~{{ zsh_user }}/.vim_runtime/install_awesome_vimrc.sh
+  become: yes
+  become_user: "{{ zsh_user }}"

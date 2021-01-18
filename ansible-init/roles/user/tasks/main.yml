@@ -1,0 +1,18 @@
+- name: Create a login user
+  user:
+    name: "{{ username }}"
+    password: '{{ password }}'
+    groups:
+      - sudo
+    state: present
+    shell: /bin/bash       # Defaults to /bin/bash
+    system: no             # Defaults to no
+    createhome: yes        # Defaults to yes
+    # home: /home/ubuntu  # Defaults to /home/<username>
+
+# https://medium.com/@khandelwal12nidhi/setup-ssh-key-and-initial-user-using-ansible-playbook-61eabbb0dba4
+- name: Set authorized key taken from file
+  authorized_key: 
+    user: "{{ username }}"
+    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+    state: present
